@@ -213,13 +213,16 @@ static ssize_t alsa_write(void *data, const void *buf_, size_t size_)
 			{
 				switch (frames) {
 					case -EPIPE:
-						RARCH_ERR("[ALSA]: snd_pcm_writei() error %d (EPIPE)\n", frames);
+						RARCH_ERR("[ALSA]: snd_pcm_writei() error %d (EPIPE) @ T=%u\n",
+								frames, cpu_features_get_time_usec());
 						break;
 					case -ESTRPIPE:
-						RARCH_ERR("[ALSA]: snd_pcm_writei() error %d (ESTRPIPE)\n", frames);
+						RARCH_ERR("[ALSA]: snd_pcm_writei() error %d (ESTRPIPE) @ T=%u\n",
+								frames, cpu_features_get_time_usec());
 						break;
 					case -EINTR:
-						RARCH_ERR("[ALSA]: snd_pcm_writei() error %d (EINTR)\n", frames);
+						RARCH_ERR("[ALSA]: snd_pcm_writei() error %d (EINTR) @ T=%u\n",
+								frames, cpu_features_get_time_usec());
 						break;
 				}
 
@@ -275,13 +278,16 @@ static ssize_t alsa_write(void *data, const void *buf_, size_t size_)
 			{
 				switch (rc) {
 					case -EPIPE:
-						RARCH_ERR("[ALSA]: snd_pcm_wait() error %d (EPIPE)\n", rc);
+						RARCH_ERR("[ALSA]: snd_pcm_wait() error %d (EPIPE) @ T=%u\n",
+								rc, cpu_features_get_time_usec());
 						break;
 					case -ESTRPIPE:
-						RARCH_ERR("[ALSA]: snd_pcm_wait() error %d (ESTRPIPE)\n", rc);
+						RARCH_ERR("[ALSA]: snd_pcm_wait() error %d (ESTRPIPE) @ T=%u\n",
+								rc, cpu_features_get_time_usec());
 						break;
 					case -EINTR:
-						RARCH_ERR("[ALSA]: snd_pcm_wait() error %d (EINTR)\n", rc);
+						RARCH_ERR("[ALSA]: snd_pcm_wait() error %d (EINTR) @ T=%u\n",
+								rc, cpu_features_get_time_usec());
 						break;
 				}
 
@@ -304,13 +310,16 @@ static ssize_t alsa_write(void *data, const void *buf_, size_t size_)
 			{
 				switch (frames) {
 					case -EPIPE:
-						RARCH_ERR("[ALSA]: snd_pcm_writei() error %d (EPIPE)\n", frames);
+						RARCH_ERR("[ALSA]: snd_pcm_writei() error %d (EPIPE) @ T=%u\n",
+								frames, cpu_features_get_time_usec());
 						break;
 					case -ESTRPIPE:
-						RARCH_ERR("[ALSA]: snd_pcm_writei() error %d (ESTRPIPE)\n", frames);
+						RARCH_ERR("[ALSA]: snd_pcm_writei() error %d (ESTRPIPE) @ T=%u\n",
+								frames, cpu_features_get_time_usec());
 						break;
 					case -EINTR:
-						RARCH_ERR("[ALSA]: snd_pcm_writei() error %d (EINTR)\n", frames);
+						RARCH_ERR("[ALSA]: snd_pcm_writei() error %d (EINTR) @ T=%u\n",
+								frames, cpu_features_get_time_usec());
 						break;
 				}
 

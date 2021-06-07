@@ -18,7 +18,7 @@ targetInstance = retroarchInstances(length(retroarchInstances));
 log = log(targetInstance:length(log));
 
 sampleRate = str2double(cell2mat(regexp(log,
-				'\[INFO\] \[Audio\]: Set audio input rate to: (\d+)\.\d* Hz.','tokens')));
+				'\[INFO\] \[Audio\]: Set audio input rate to: (\d+\.\d*) Hz.','tokens')));
 bufferSize = str2double(cell2mat(regexp(log,
 				'\[INFO\] \[ALSA\]: Buffer size: (\d+) frames','tokens')));
 
@@ -57,14 +57,19 @@ retroSleepMsReturn = ...
 audioSampleDelay = ...
 				circshift(str2double(cell2mat(regexp(
 								log,
-								'\[INFO\] \[ALSA\]: \d+ frames available, (\d+) frames delay @ T=(\d+)',
+								'\[INFO\] \[ALSA\]: \d+ frames available, (-?\d+) frames delay @ T=(\d+)',
 								'tokens')')),
 						[0, 1]);
+# Negative values indicate an xrun or something--set buffer fill to 0
+audioSampleDelay(find(audioSampleDelay(:,2) < 0), 2) = 0;
+
 epipe = ...
 				str2double(cell2mat(regexp(
 						log,
-						'\[ERROR\] \[ALSA\]: EPIPE.*?\n.*?(\d+)',
+						'\[ERROR\] \[ALSA\]: snd_pcm_wait\(\) error -32 \(EPIPE\) @ T=(\d+)',
 						'tokens')'));
+# TODO other errors
+
 
 t0 = min([
 				audioDrvSmpBatchCall,
@@ -83,7 +88,7 @@ videoDrvFrameReturn = (videoDrvFrameReturn - t0);
 retroSleepMsCall = (retroSleepMsCall - t0);
 retroSleepMsReturn = (retroSleepMsReturn - t0);
 audioSampleDelay(:,1) = (audioSampleDelay(:,1) - t0);
-epipe = (epipe - t0) / 1e6;
+epipe = (epipe - t0);
 
 figure();
 hold on;
