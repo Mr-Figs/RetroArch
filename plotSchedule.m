@@ -89,7 +89,7 @@ figure();
 hold on;
 
 printf("Plot audio buffer levels...\n");
-plot(audioSampleDelay(:,1), audioSampleDelay(:,2), 'b');
+plot(audioSampleDelay(:,1), audioSampleDelay(:,2), '.-b');
 
 % Vertical lines for EPIPE errors
 printf("Plot EPIPE errors...\n");
